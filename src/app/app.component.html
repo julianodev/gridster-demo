@@ -1,0 +1,87 @@
+<div class="omnibar">
+    <div class="toolbar">
+        <h1>SURA RC - DASHBOARD</h1>
+        <br />
+        <strong>Ratio :</strong> {{slider.value}}
+        <mat-slider [(ngModel)]="gridsterOptions.widthHeightRatio" color="primary" min="1" max="5" step="0.5" value="1" thumbLabel #slider (change)="gridster.setOption('widthHeightRatio', gridsterOptions.widthHeightRatio).reload()"></mat-slider>
+
+        <mat-checkbox color="primary" [(ngModel)]="gridsterOptions.dragAndDrop" value="true" (change)="gridster.setOption('dragAndDrop', gridsterOptions.dragAndDrop)">
+            Draggable
+        </mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="gridsterOptions.resizable" value="true" (change)="gridster.setOption('resizable', gridsterOptions.resizable)">
+            Resizable
+        </mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="gridsterOptions.floating" value="true" (change)="gridster.setOption('floating', gridsterOptions.floating)">
+            Floating (gravity)
+        </mat-checkbox>
+
+        <br> Direction
+        <mat-radio-group>
+            <mat-radio-button color="primary" value="none" (change)="gridster.setOption('direction', 'none').reload()">None</mat-radio-button>
+            <mat-radio-button color="primary" value="horizontal" (change)="gridster.setOption('direction', 'horizontal').reload()">Horizontal</mat-radio-button>
+            <mat-radio-button color="primary" value="vertical" (change)="gridster.setOption('direction', 'vertical').reload()">Vertical</mat-radio-button>
+        </mat-radio-group>
+
+        <br> Max item size: {{itemOptions.maxWidth}} x {{itemOptions.maxHeight}}
+    </div>
+
+
+</div>
+<div class="main-content">
+
+    <gridster [options]="gridsterOptions" [draggableOptions]="gridsterDraggableOptions" (reflow)="onReflow($event)" (optionsChange)="optionsChange($event)" #gridster1 class="dashboard">
+
+
+        <gridster-item [options]="itemOptions" (change)="itemChange($event, gridster1)" class="item2">
+
+
+
+            <div class="panel-body">
+                <br />
+                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices" [customColors]="customColors" [labels]="true" [doughnut]="doughnut" [gradient]="gradient" (select)="onSelect($event)">
+                </ngx-charts-pie-chart>
+            </div>
+
+        </gridster-item>
+
+
+
+        <gridster-item [options]="itemOptions" (change)="itemChange($event, gridster1)" class="item2">
+
+
+
+            <div class="panel-body">
+                <br />
+                <ngx-charts-pie-grid [view]="view2" [scheme]="colorScheme" [results]="single" (select)="onSelect($event)">
+                </ngx-charts-pie-grid>
+            </div>
+
+        </gridster-item>
+
+        <gridster-item #item2 [options]="itemOptions1" (change)="itemChange($event, gridster1)" class="item3">
+
+
+            <div class="panel-body">
+                <br />
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+
+        </gridster-item>
+    </gridster>
+</div>
+
+<style>
+    .item2 {
+        background-color: #1B1E27;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    .item3 {
+        background-color: #1B1E27;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
