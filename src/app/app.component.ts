@@ -108,16 +108,22 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentInit {
         handlerClass: 'panel-body' //Nome da classe aplicada ao item,
     };
 
+    items = [
+        { w: 2, h: 2 },
+        { w: 2, h: 2 },
+        { w: 2, h: 2 }
+    ];
+
     ngAfterContentInit(): void {
-        this.item2.w = 2;
-        this.item2.x = 2;
-        this.item2.h = 1;
-        this.item2.y = 0;
-        this.item2.resizable = true;
-        this.item2.dragAndDrop = true;
     }
 
     ngOnInit() {
+        let items;
+        try {
+            items = JSON.parse(localStorage.getItem('DASHBOARD_ITEMS'));
+        } catch(e) {}
+
+        this.items = items || this.items;
     }
 
     ngAfterViewInit(): void {
@@ -133,8 +139,10 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentInit {
         this.gridsterOptions = options;
     }
 
-    itemChange(event: any, gridster: GridsterItemComponent) {
-
+    itemChange() {
+        try {
+            localStorage.setItem('DASHBOARD_ITEMS', JSON.stringify(this.items));
+        } catch(e) {}
     }
 
 }

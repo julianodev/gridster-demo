@@ -29,16 +29,18 @@
 </div>
 <div class="main-content">
 
-    <gridster [options]="gridsterOptions" [draggableOptions]="gridsterDraggableOptions" (reflow)="onReflow($event)" (optionsChange)="optionsChange($event)" #gridster1 class="dashboard">
+    <gridster [options]="gridsterOptions" [draggableOptions]="gridsterDraggableOptions" (reflow)="onReflow($event)" (optionsChange)="optionsChange($event)" #gridster1 class="dashboard" (ready)="gridsterReady = true">
 
 
-        <gridster-item [options]="itemOptions" (change)="itemChange($event, gridster1)" class="item2">
+        <gridster-item [options]="itemOptions" (change)="itemChange()" class="item2"
+
+                       [(w)]="items[0].w" [(h)]="items[0].h">
 
 
 
             <div class="panel-body">
                 <br />
-                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices" [customColors]="customColors" [labels]="true" [doughnut]="doughnut" [gradient]="gradient" (select)="onSelect($event)">
+                <ngx-charts-pie-chart *ngIf="gridsterReady" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices" [customColors]="customColors" [labels]="true" [doughnut]="doughnut" [gradient]="gradient" (select)="onSelect($event)">
                 </ngx-charts-pie-chart>
             </div>
 
@@ -46,24 +48,36 @@
 
 
 
-        <gridster-item [options]="itemOptions" (change)="itemChange($event, gridster1)" class="item2">
+        <gridster-item [options]="itemOptions" (change)="itemChange()" class="item2"
+                       [(x)]="items[1].x" [(y)]="items[1].y"
+                       [(xSm)]="items[1].xSm" [(ySm)]="items[1].ySm"
+                       [(xMd)]="items[1].xMd" [(yMd)]="items[1].yMd"
+                       [(xLg)]="items[1].xLg" [(yLg)]="items[1].yLg"
+                       [(xXl)]="items[1].xXl" [(yXl)]="items[1].yXl"
+                       [(w)]="items[1].w" [(h)]="items[1].h">
 
 
 
             <div class="panel-body">
                 <br />
-                <ngx-charts-pie-grid [view]="view2" [scheme]="colorScheme" [results]="single" (select)="onSelect($event)">
+                <ngx-charts-pie-grid *ngIf="gridsterReady" [scheme]="colorScheme" [results]="single" (select)="onSelect($event)">
                 </ngx-charts-pie-grid>
             </div>
 
         </gridster-item>
 
-        <gridster-item #item2 [options]="itemOptions1" (change)="itemChange($event, gridster1)" class="item3">
+        <gridster-item [options]="itemOptions1" (change)="itemChange()" class="item3"
+                       [(x)]="items[2].x" [(y)]="items[2].y"
+                       [(xSm)]="items[2].xSm" [(ySm)]="items[2].ySm"
+                       [(xMd)]="items[2].xMd" [(yMd)]="items[2].yMd"
+                       [(xLg)]="items[2].xLg" [(yLg)]="items[2].yLg"
+                       [(xXl)]="items[2].xXl" [(yXl)]="items[2].yXl"
+                       [(w)]="items[2].w" [(h)]="items[2].h">
 
 
             <div class="panel-body">
                 <br />
-                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                <ngx-charts-bar-vertical *ngIf="gridsterReady" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
                     [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
                 </ngx-charts-bar-vertical>
             </div>
